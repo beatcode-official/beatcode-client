@@ -1,0 +1,7 @@
+node_modules
+
+components.json
+package-lock.json
+package.json
+.svelte-kit
+/static
