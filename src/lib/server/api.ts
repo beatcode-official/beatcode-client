@@ -68,7 +68,7 @@ async function send({ method, path, data, cookies, refresh }: HttpRequestFetch):
         if (response.status >= 400 || response.status <= 499) {
             return { error: json, status: response.status };
         }
-    } catch (e) {
+    } catch {
         // Unexpected server errors ranging from 500 to 599
         error(responseStatus as NumericRange<500, 599>);
     }

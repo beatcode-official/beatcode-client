@@ -1,8 +1,6 @@
 <script lang="ts">
     import type { Snippet } from "svelte";
-    import * as Dialog from "$components/ui/dialog";
     import * as Form from "$components/ui/form";
-    import { Button } from "$components/ui/button";
     import { Input } from "$components/ui/input";
     import * as Tooltip from "$components/ui/tooltip";
     import * as Select from "$components/ui/select";

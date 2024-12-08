@@ -1,10 +1,10 @@
 // Check if event locals has name yet, if not generate a dialog before entering the game :)
 import type { Actions, PageServerLoad } from "./$types";
 import { WEBSOCKET_URL } from "$env/static/private";
-import { fail, redirect } from "@sveltejs/kit";
-import { loginAsGuest, getMe } from "$lib/server/auth";
+import { fail } from "@sveltejs/kit";
+import { loginAsGuest } from "$lib/server/auth";
 
-export const load: PageServerLoad = async ({ locals, cookies, params }) => {
+export const load: PageServerLoad = async ({ cookies, params }) => {
     return {
         roomCode: params.code,
         websocketUrl: WEBSOCKET_URL,
@@ -14,11 +14,14 @@ export const load: PageServerLoad = async ({ locals, cookies, params }) => {
 };
 
 export const actions = {
-    joinRoomAsGuest: async ({ request, locals, cookies }) => {
+    joinRoomAsGuest: async ({ cookies }) => {
         try {
             await loginAsGuest(cookies);
-        } catch (e: any) {
-            return fail(500, { message: e.message });
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                return fail(500, { message: e.message });
+            }
+            return fail(500, { message: "Unknown error" });
         }
     }
 } satisfies Actions;

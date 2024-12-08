@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { slide } from "svelte/transition";
-    import { Check, X } from "lucide-svelte";
     import type { SubmissionResults } from "$lib/models/game";
     import { cn } from "$lib/utils";
 

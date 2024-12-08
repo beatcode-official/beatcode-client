@@ -8,15 +8,15 @@ export const load: PageServerLoad = async ({ locals, cookies, params }) => {
     if (!locals.user) {
         redirect(302, "/login");
     }
-    // try {
-    //     const data = await getCurrentGame(cookies);
-    //     if (data.match_id !== params.id) {
-    //         redirect(302, "/");
-    //     }
-    // } catch (e) {
-    //     console.error(e);
-    //     redirect(302, "/");
-    // }
+    try {
+        const data = await getCurrentGame(cookies);
+        if (data.match_id !== params.code) {
+            redirect(302, "/");
+        }
+    } catch (e) {
+        console.error(e);
+        redirect(302, "/");
+    }
 
     return {
         gameId: params.code,
@@ -26,11 +26,14 @@ export const load: PageServerLoad = async ({ locals, cookies, params }) => {
 };
 
 export const actions = {
-    joinGameAsGuest: async ({ request, locals, cookies }) => {
+    joinGameAsGuest: async ({ cookies }) => {
         try {
             await loginAsGuest(cookies);
-        } catch (e: any) {
-            return fail(500, { message: e.message });
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                return fail(500, { message: e.message });
+            }
+            return fail(500, { message: "Unknown error" });
         }
     }
 } satisfies Actions;

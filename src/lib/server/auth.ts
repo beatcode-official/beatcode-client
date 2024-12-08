@@ -2,7 +2,6 @@ import { error, type Cookies } from "@sveltejs/kit";
 import * as api from "./api";
 import { setTokenCookie } from "./utils";
 import type { LoginData, RegisterData } from "$lib/models/auth";
-import type { User } from "$lib/models/user";
 
 export const login = async (data: LoginData, cookies: Cookies) => {
     const { username, password } = data;
@@ -28,7 +27,7 @@ export const loginAsGuest = async (cookies: Cookies) => {
     return { status: 200 };
 };
 
-export const register = async (data: RegisterData, cookies: Cookies) => {
+export const register = async (data: RegisterData) => {
     const response = await api.post("/users/register", data);
     if (response.error) {
         return response;

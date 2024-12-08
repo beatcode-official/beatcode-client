@@ -1,10 +1,8 @@
 <script lang="ts">
     import { type Infer, superForm } from "sveltekit-superforms";
-    import { get } from "svelte/store";
 
     import type { PageData } from "./$types";
     import type { RoomSettingsSchema, JoinRoomSchema } from "$models/room";
-    import { DefaultRoomSettings } from "$assets/config/room";
 
     import Logo from "$assets/icons/logo.svelte";
     import * as Form from "$components/ui/form";
@@ -14,17 +12,12 @@
     import { RoomSettingsForm } from "$components/game/room";
     import { announce } from "$lib/utils";
     import { Separator } from "$components/ui/separator";
-    import { createWebSocket } from "$lib/websocket.svelte";
 
     interface Props {
         data: PageData;
     }
 
     let { data }: Props = $props();
-    let closeDialogBtn = $state<HTMLButtonElement>();
-    let roomCode = $state<string>();
-    const ws = createWebSocket(data.token ?? "");
-
     const createRoomForm = superForm<Infer<typeof RoomSettingsSchema>>(data.createRoomForm, {
         id: "create-room",
         onResult: ({ result }) => {
@@ -38,19 +31,7 @@
         }
     });
 
-    const {
-        form: createRoomFormData,
-        errors: createRoomErrors,
-        enhance: enhanceCreateRoom,
-        message: createRoomMessage
-    } = createRoomForm;
-
-    const {
-        form: joinRoomFormData,
-        errors: joinRoomErrors,
-        enhance: enhanceJoinRoom,
-        message: joinRoomMessage
-    } = joinRoomForm;
+    const { form: joinRoomFormData, enhance: enhanceJoinRoom } = joinRoomForm;
 </script>
 
 <svelte:head>

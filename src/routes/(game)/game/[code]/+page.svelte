@@ -6,10 +6,9 @@
     import { createWebSocket } from "$lib/websocket.svelte";
     import type { GameState, ProblemDetails, SubmissionResults } from "$models/game";
     import { Problem, Test, Abilities } from "$components/game/panel";
-    import type { User } from "$models/user";
-    
+
     import AvatarImg from "$assets/images/avatar.jpg";
-    
+
     import * as Avatar from "$components/ui/avatar";
     import { Button } from "$components/ui/button";
     import * as Dialog from "$components/ui/dialog";
@@ -17,10 +16,16 @@
     import * as Resizable from "$components/ui/resizable";
 
     import { Editor, EditorData } from "$components/game/editor";
-    import { cn } from "$lib/utils";
 
-    import { Play, Send, FileText, SquareCode, CheckSquare, Loader, LogOut, Sparkles } from "lucide-svelte";
-
+    import {
+        Play,
+        FileText,
+        SquareCode,
+        CheckSquare,
+        Loader,
+        LogOut,
+        Sparkles
+    } from "lucide-svelte";
 
     interface Props {
         data: PageData;
@@ -37,8 +42,8 @@
 
     const tabs = [
         { name: "Test Cases", icon: CheckSquare },
-        { name: "Abilities", icon: Sparkles },
-    ]
+        { name: "Abilities", icon: Sparkles }
+    ];
 
     // Editor
     const editorData = new EditorData();
@@ -65,7 +70,7 @@
             const damage = gameState.opponent_hp - newState.opponent_hp;
             toast.success(`You have dealt ${damage} damage to ${gameState.opponent_display_name}`);
         }
-    }
+    };
 
     const checkAbilityPurchase = (newState: GameState) => {
         if (!gameState) return;
@@ -76,20 +81,19 @@
         if (diff.size !== 0) {
             toast.success(`You have purchased ${diff.values().next().value}!`);
         }
-    }
+    };
 
     const processAbilityUsage = (user: string, ability: string) => {
         if (user === data.user?.username) return;
         editorData.triggerAbility(ability);
         if (ability === "lightio") {
             lightMode = true;
-            console.log(lightMode)
+            console.log(lightMode);
             setTimeout(() => {
                 lightMode = false;
             }, 30000);
         }
-    }
-
+    };
 
     // WebSocket connection
     const ws = createWebSocket(data?.token ?? "");
@@ -137,15 +141,15 @@
     // Actions
     const buyAbility = (ability: string) => {
         console.log(ability);
-        ws.send("ability", { 
+        ws.send("ability", {
             action: "buy",
             ability_id: ability
         });
     };
-    
+
     const useAbility = (ability: string) => {
         console.log(ability);
-        ws.send("ability", { 
+        ws.send("ability", {
             action: "use",
             ability_id: ability
         });
@@ -182,7 +186,12 @@
             </div>
         </div>
         <div class="flex space-x-0.5">
-            <Button variant="secondary" size="sm" class="bg-neutral rounded-r-none" onclick={submitCode}>
+            <Button
+                variant="secondary"
+                size="sm"
+                class="rounded-r-none bg-neutral"
+                onclick={submitCode}
+            >
                 {#if isSubmitting}
                     <Loader class="mr-2 h-4 w-4 animate-spin" />
                     Submitting...
@@ -191,7 +200,12 @@
                     Submit Code
                 {/if}
             </Button>
-            <Button variant="secondary" size="sm" class="bg-neutral rounded-l-none px-2.5" onclick={forfeit}>
+            <Button
+                variant="secondary"
+                size="sm"
+                class="rounded-l-none bg-neutral px-2.5"
+                onclick={forfeit}
+            >
                 <LogOut />
             </Button>
         </div>
@@ -217,7 +231,9 @@
 
     <Resizable.PaneGroup direction="horizontal" class="flex-1 px-2 pb-2">
         <Resizable.Pane defaultSize={50}>
-            <div class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background">
+            <div
+                class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background"
+            >
                 <div class="flex gap-1 bg-neutral text-neutral-foreground">
                     <div class="flex p-2">
                         <FileText class="mr-1 p-1" />
@@ -236,31 +252,47 @@
         <Resizable.Pane defaultSize={50}>
             <Resizable.PaneGroup direction="vertical">
                 <Resizable.Pane defaultSize={75}>
-                    <div class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background">
+                    <div
+                        class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background"
+                    >
                         <div class="flex gap-1 bg-neutral text-neutral-foreground">
                             <div class="flex p-2">
                                 <SquareCode class="mr-1 p-1" />
                                 <span class="font-semibold">Code</span>
                             </div>
                         </div>
-                        <div class="h-full w-full overflow-auto px-4 py-2 {lightMode ? 'bg-white' : 'bg-background'}">
+                        <div
+                            class="h-full w-full overflow-auto px-4 py-2 {lightMode
+                                ? 'bg-white'
+                                : 'bg-background'}"
+                        >
                             <Editor data={editorData} />
                         </div>
                     </div>
                 </Resizable.Pane>
                 <Resizable.Handle class="my-0.5 !h-[2px] bg-transparent hover:bg-blue-500" />
                 <Resizable.Pane defaultSize={25} class="bg-background">
-                    <div class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background">
-                        <div class="flex items-center justify-between p-1 bg-neutral text-neutral-foreground">
+                    <div
+                        class="flex h-full flex-col overflow-hidden rounded-lg border-[1px] border-secondary bg-background"
+                    >
+                        <div
+                            class="flex items-center justify-between bg-neutral p-1 text-neutral-foreground"
+                        >
                             <div class="flex gap-1">
                                 {#each tabs as tab, i}
-                                    <button class="flex rounded-sm p-1 pr-2 cursor-pointer hover:bg-secondary/50 {selected == i ? 'bg-secondary/50' : 'text-foreground/50'}" onclick={() => selected = i}>
+                                    <button
+                                        class="flex cursor-pointer rounded-sm p-1 pr-2 hover:bg-secondary/50 {selected ==
+                                        i
+                                            ? 'bg-secondary/50'
+                                            : 'text-foreground/50'}"
+                                        onclick={() => (selected = i)}
+                                    >
                                         <tab.icon class="mr-1 p-1" />
                                         <span class="font-semibold">{tab.name}</span>
                                     </button>
                                 {/each}
                             </div>
-                            <div class="pr-4 font-medium space-x-4">
+                            <div class="space-x-4 pr-4 font-medium">
                                 <span>MP: {gameState?.mana_points ?? 0}</span>
                                 <span>SP: {gameState?.skill_points ?? 0}</span>
                             </div>
@@ -268,7 +300,7 @@
                         {#if selected === 0}
                             <Test results={submissionResults} />
                         {:else}
-                            <Abilities gameState={gameState} {useAbility} {buyAbility} />
+                            <Abilities {gameState} {useAbility} {buyAbility} />
                         {/if}
                     </div>
                 </Resizable.Pane>
@@ -281,13 +313,11 @@
         <Dialog.Header>
             <Dialog.Title>{winner} won!</Dialog.Title>
         </Dialog.Header>
-        <div class="flex justify-center my-4">
-            <img src="/path/to/avatar.png" alt="Winner Avatar" class="w-24 h-24 rounded-full" />
+        <div class="my-4 flex justify-center">
+            <img src="/path/to/avatar.png" alt="Winner Avatar" class="h-24 w-24 rounded-full" />
         </div>
         <Dialog.Footer class="mt-4">
-            <Button href="/home">
-                Home
-            </Button>
+            <Button href="/home">Home</Button>
         </Dialog.Footer>
     </Dialog.Content>
 </Dialog.Root>

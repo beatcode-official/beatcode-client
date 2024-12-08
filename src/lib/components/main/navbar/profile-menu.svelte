@@ -6,7 +6,6 @@
     import * as Avatar from "$components/ui/avatar";
     import * as DropdownMenu from "$components/ui/dropdown-menu";
     import { cn } from "$lib/utils";
-    import Separator from "$components/ui/separator/separator.svelte";
     import { goto } from "$app/navigation";
 
     interface Props {

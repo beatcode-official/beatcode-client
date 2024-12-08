@@ -1,10 +1,12 @@
+/// <reference types="vitest" />
 import { purgeCss } from "vite-plugin-tailwind-purgecss";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
+import { svelteTesting } from "@testing-library/svelte/vite";
 import path from "path";
 
 export default defineConfig({
-    plugins: [sveltekit(), purgeCss()],
+    plugins: [sveltekit(), svelteTesting(), purgeCss()],
     optimizeDeps: {
         include: ["gsap"]
     },
@@ -15,5 +17,9 @@ export default defineConfig({
         alias: {
             $lib: path.resolve("./src/lib")
         }
+    },
+    test: {
+        environment: "jsdom",
+        setupFiles: ["./vitest-setup.js"]
     }
 });

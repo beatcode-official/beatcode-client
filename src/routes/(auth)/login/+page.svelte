@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import SuperDebug, { type Infer, superForm } from "sveltekit-superforms";
+    import { type Infer, superForm } from "sveltekit-superforms";
     import { goto } from "$app/navigation";
 
     import * as Card from "$components/ui/card";
@@ -18,7 +18,7 @@
         data: PageData;
     }
 
-    let { data } = $props();
+    let { data }: Props = $props();
     let loading = $state(false);
 
     const form = superForm<Infer<typeof LoginSchema>>(data.form, {
@@ -32,7 +32,7 @@
         }
     });
 
-    const { form: formData, errors, enhance } = form;
+    const { form: formData, enhance } = form;
 </script>
 
 <div class="flex h-navscreen justify-center bg-background">

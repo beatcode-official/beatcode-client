@@ -1,4 +1,4 @@
-import type { Cookies, Handle } from "@sveltejs/kit";
+import type { Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 import { getMe } from "$lib/server/auth";
 import { getCurrentGame } from "$lib/server/game";
@@ -31,7 +31,7 @@ const checkAuth: Handle = async ({ event, resolve }) => {
             const user = await getMe(event.cookies);
             event.locals.user = user;
         }
-    } catch (e: unknown) {
+    } catch {
         if (isProtected) {
             return redirect("/login", "User is unauthorized");
         }

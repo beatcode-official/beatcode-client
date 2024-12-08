@@ -2,12 +2,11 @@ import type { Actions, PageServerLoad } from "./$types";
 import { fail, isHttpError, isRedirect, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import * as api from "$lib/server/api";
 import { RoomSettingsSchema, JoinRoomSchema } from "$models/room";
 import { WEBSOCKET_URL } from "$env/static/private";
 import { createRoom } from "$lib/server/room";
 
-export const load: PageServerLoad = async ({ locals, cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
     return {
         createRoomForm: await superValidate(zod(RoomSettingsSchema)),
         joinRoomForm: await superValidate(zod(JoinRoomSchema)),
@@ -47,7 +46,7 @@ export const actions = {
         }
     },
 
-    joinRoom: async ({ request, locals, cookies }) => {
+    joinRoom: async ({ request }) => {
         const joinRoomForm = await superValidate(request, zod(JoinRoomSchema));
 
         if (!joinRoomForm.valid) {

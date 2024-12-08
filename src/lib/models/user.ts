@@ -1,4 +1,6 @@
-export interface User {
+import type { HttpJSONPayload } from "./request";
+
+export interface User extends HttpJSONPayload {
     username: string;
     email: string;
     display_name: string;

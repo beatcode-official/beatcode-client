@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { slide } from "svelte/transition";
-    import { Check, X } from "lucide-svelte";
-    import type { GameState, SubmissionResults } from "$lib/models/game";
+    import type { GameState } from "$lib/models/game";
     import { Button } from "$components/ui/button";
     import { Abilities } from "$assets/config/game";
     import { cn } from "$lib/utils";
@@ -18,7 +16,7 @@
 <div class="w-full overflow-y-auto bg-background p-4">
     <h4 class="mb-4 text-xl font-medium">Abilities</h4>
     <div class="flex flex-col gap-2">
-        {#each Abilities as item, i}
+        {#each Abilities as item}
             <div
                 class="flex items-center justify-between gap-4 rounded-lg border border-secondary p-4"
             >

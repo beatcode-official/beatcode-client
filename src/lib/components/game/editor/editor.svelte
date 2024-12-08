@@ -8,7 +8,7 @@
     }
 
     let { data }: Props = $props();
-    let editor: HTMLDivElement;
+    let editor = $state<HTMLDivElement>();
     let editorView: EditorView;
 
     $effect(() => {

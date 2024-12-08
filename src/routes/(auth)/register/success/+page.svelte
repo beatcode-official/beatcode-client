@@ -2,7 +2,6 @@
     import type { PageData } from "./$types";
     import * as Card from "$components/ui/card";
     import Logo from "$assets/icons/logo.svelte";
-    import { Button } from "$components/ui/button";
 
     interface Props {
         data: PageData;

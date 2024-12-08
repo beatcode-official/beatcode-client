@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import SuperDebug, { type Infer, superForm } from "sveltekit-superforms";
+    import { type Infer, superForm } from "sveltekit-superforms";
 
     import * as Card from "$components/ui/card";
     import * as Form from "$components/ui/form";
@@ -17,7 +17,7 @@
         data: PageData;
     }
 
-    let { data } = $props();
+    let { data }: Props = $props();
 
     const form = superForm<Infer<typeof RegisterSchema>>(data.form, {
         onResult: async ({ result }) => {

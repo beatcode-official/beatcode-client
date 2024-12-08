@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Exit and block git push if there's any error
+set -e
+
+# Commands
+npm install
+
+echo "Running formatter..."
+npm run format
+
+echo "Staging formatted files..."
+git add -u
+
+echo "Running linter..."
+npm run lint
+
+echo "Running tests..."
+npm run test
+
+echo "All checks passed. Proceeding with push."

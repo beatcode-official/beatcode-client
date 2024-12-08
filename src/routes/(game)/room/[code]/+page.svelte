@@ -8,8 +8,6 @@
 
     import { Button } from "$components/ui/button";
     import * as Dialog from "$components/ui/dialog";
-    import * as Form from "$components/ui/form";
-    import { Input } from "$components/ui/input";
     import { Separator } from "$components/ui/separator";
     import StatusIndicator from "$components/misc/status-indicator.svelte";
 

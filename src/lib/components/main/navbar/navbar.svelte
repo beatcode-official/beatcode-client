@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { page } from "$app/stores";
     import LogoHorizontal from "$assets/images/logo-horizontal.svelte";
     import type { User } from "$lib/models/user";
 

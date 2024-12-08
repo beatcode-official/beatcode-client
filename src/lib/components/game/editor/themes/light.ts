@@ -27,49 +27,52 @@ const editorThemeColors = {
     propertyNames: "#005CC5",
     booleansAndAtoms: "#005CC5",
     numbersAndUnits: "#005CC5",
-    metaAndComments: "#6A737D",
+    metaAndComments: "#6A737D"
 };
 
 const Theme = EditorView.theme(
     {
         "&": {
             color: editorThemeColors.foreground,
-            backgroundColor: editorThemeColors.background,
+            backgroundColor: editorThemeColors.background
         },
         ".cm-content": {
-            caretColor: editorThemeColors.cursor,
+            caretColor: editorThemeColors.cursor
         },
         ".cm-cursor, .cm-dropCursor": {
-            borderLeftColor: editorThemeColors.cursor,
+            borderLeftColor: editorThemeColors.cursor
         },
         ".cm-selectionBackground, .cm-content ::selection": {
-            backgroundColor: editorThemeColors.selection,
+            backgroundColor: editorThemeColors.selection
         },
         ".cm-panels": {
             backgroundColor: editorThemeColors.darkBackground,
-            color: editorThemeColors.foreground,
+            color: editorThemeColors.foreground
         },
         ".cm-activeLine": {
-            backgroundColor: editorThemeColors.highlightBackground,
+            backgroundColor: editorThemeColors.highlightBackground
         },
         ".cm-gutters": {
             backgroundColor: editorThemeColors.background,
             color: editorThemeColors.gutter,
-            border: "none",
+            border: "none"
         },
         ".cm-tooltip": {
-            backgroundColor: editorThemeColors.tooltipBackground,
+            backgroundColor: editorThemeColors.tooltipBackground
         },
         ".cm-activeLineGutter": {
-            backgroundColor: editorThemeColors.highlightBackground,
-        },
+            backgroundColor: editorThemeColors.highlightBackground
+        }
     },
     { dark: true }
 );
 
 const Highlight = HighlightStyle.define([
     { tag: t.keyword, color: editorThemeColors.keyword },
-    { tag: [t.controlKeyword, t.moduleKeyword], color: editorThemeColors.controlFlowAndModuleKeywords },
+    {
+        tag: [t.controlKeyword, t.moduleKeyword],
+        color: editorThemeColors.controlFlowAndModuleKeywords
+    },
     { tag: [t.function(t.variableName)], color: editorThemeColors.functions },
     { tag: [t.typeName, t.className], color: editorThemeColors.typesAndClasses },
     { tag: t.tagName, color: editorThemeColors.tagNames },
@@ -79,7 +82,7 @@ const Highlight = HighlightStyle.define([
     { tag: [t.number], color: editorThemeColors.numbersAndUnits },
     { tag: t.comment, color: editorThemeColors.metaAndComments },
     { tag: t.invalid, color: editorThemeColors.invalid },
-    { tag: t.propertyName, color: editorThemeColors.propertyNames },
+    { tag: t.propertyName, color: editorThemeColors.propertyNames }
 ]);
 
 export const LightTheme = [Theme, syntaxHighlighting(Highlight)];

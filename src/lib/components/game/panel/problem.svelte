@@ -14,8 +14,9 @@
 </script>
 
 <div class="h-full bg-background px-4 py-5">
-    <h2 class="mb-4 text-2xl font-bold">{title}</h2>
+    <h2 class="mb-4 text-2xl font-bold">{title ?? titleFallback}</h2>
     <div>
-        {@html description}
+        <!-- eslint-disable svelte/no-at-html-tags -->
+        {@html description ?? descriptionFallback}
     </div>
 </div>
